@@ -1,0 +1,21 @@
+- name: create user
+  tags: always
+  ansible.builtin.user:
+    name: director
+    groups: root
+
+- name: add sudoers file for director
+  tags: always
+  ansible.builtin.copy:
+    src: sudoer_director
+    dest: /etc/sudoers.d/director
+    owner: root
+    group: root
+    mode: 0440
+
+- name: add ssh key for director user
+  tags: always
+  ansible.builtin.authorized_key:
+    user: director
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBWt2/3MTibZBwgQZtoPJIZc3Cnkz/xeFhGZ8p9B/zsV h@ubuntu-ws"
+

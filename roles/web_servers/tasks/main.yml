@@ -15,19 +15,12 @@
   ansible.builtin.lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin somebodysomewhere.net
+    line: ServerAdmin somebodysomewhere.com
   when: ansible_distribution == "Fedora"
-  register: apache
-
-- name: restart apache
-  tags: apache
-  ansible.builtin.service:
-    name: "{{ apache_service }}"
-    state: restarted
-  when: apache.changed
+  notify: restart_apache
 
 - name: copy html file for site
-  tags: apache,ubuntu
+  tags: apache
   ansible.builtin.copy:
     src: default_site.html
     dest: /var/www/html/index.html

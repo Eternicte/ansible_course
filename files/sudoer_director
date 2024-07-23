@@ -1,0 +1,2 @@
+# Managed by Ansible
+director ALL=(ALL) NOPASSWD: ALL

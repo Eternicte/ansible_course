@@ -19,3 +19,13 @@
     user: director
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBWt2/3MTibZBwgQZtoPJIZc3Cnkz/xeFhGZ8p9B/zsV h@ubuntu-ws"
 
+- name: generate sshd_config file from template
+  tags: ssh
+  template:
+    src: "{{ ssh_template_file }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd
+
